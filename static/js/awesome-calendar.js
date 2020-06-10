@@ -12,7 +12,7 @@ function initAwesomeStructure() {
     for(let i = 1; i <= 42; ++i) {
         var randRotation = parseFloat(Math.random()*(min - max + 1) + max);
         days.append(
-            '<div class="day-group">\n' +
+            '<div class="day-group" id="day' + i + '">\n' +
             '    <div class="day-outside">\n' +
             '        <div class="day-shadow"></div>\n' +
             '        <div class="day-paper"" style="grid-area: day-' + i + '; transform: rotate(' + randRotation + 'deg);">\n' +

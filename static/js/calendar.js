@@ -68,6 +68,18 @@ function initLogic(isAwesome=false){
                 DayBgColor.style = "background:#1abc9c";
             }
         }
+
+        // 仅用不属于这个月的信息
+        for(var j = nowMonthStartDay - 1; j > 0 ; --j){
+            var Day = document.getElementById("day" + j);
+            Day.disabled = "disabled";
+            Day.style.opacity = "0";
+        }
+        for(var j = nowMonthStartDay + numberOfDaysInMonth; j <= 42 ; ++j){
+            var Day = document.getElementById("day" + j);
+            Day.disabled = "disabled";
+            Day.style.opacity = "0";
+        }
     }
 
     printDays(thisYear, thisMonth);
