@@ -8,7 +8,7 @@ var changeYear = thisYear;
 var changeMonth = thisMonth;
 var changeDay = dayNum;
 
-function initLogic(){
+function initLogic(isAwesome=false){
     var now = document.getElementById('current-year-month');
     var month_left = document.getElementById('month-left');
     var month_right = document.getElementById('month-right');
@@ -23,9 +23,17 @@ function initLogic(){
      * 刷新页面
      */
     function refresh() {
+        if(isAwesome == true){
+            for(var i = 1; i <= 42; ++i) {
+                document.getElementById("day-text-" + i).innerHTML = " ";
+                document.getElementById("day-bgcolor-" + i).style.background = "linear-gradient(135deg,#5EFCE8,#736EFE)";
+            }
+            return;
+        }
+
         document.querySelectorAll(".day").forEach(function(elem){
             elem.innerHTML = " ";
-            elem.style = "backgroud-color:#eeeeee";
+            elem.style = "backgroud: #eeeeee";
         });
     }
 
@@ -42,13 +50,22 @@ function initLogic(){
         now.innerHTML = " ";
         now.innerHTML = monthLetter[month - 1] + '<br />' + year;        //改变title的内容
         for(var i = 1, j = nowMonthStartDay; i <= numberOfDaysInMonth; i++, j++) {  //判断变色的日期
-            var Day = document.getElementById("day" + j);
-            Day.innerHTML = "" + i;
+            // for basic calendar
+            var DayText = document.getElementById("day" + j);
+            var DayBgColor = DayText;
+
+            // for awesome calendar
+            if(isAwesome){
+                DayText = document.getElementById("day-text-" + j);
+                DayBgColor = document.getElementById("day-bgcolor-" + j);
+            }
+
+            DayText.innerHTML = "" + i;
             if(year == thisYear && month == thisMonth && i.toString() == dayNum) {   //当前日期一直是绿色
-                Day.style = "background-color:#1abc9c";
+                DayBgColor.style = "background:#1abc9c";
             }
             if(i.toString() == changeDay) {     //选中的符合要求的日期显示绿色
-                Day.style = "background-color:#1abc9c";
+                DayBgColor.style = "background:#1abc9c";
             }
         }
     }
@@ -87,8 +104,15 @@ function initLogic(){
         printDays(changeYear, changeMonth);
     }
 
-    days.onclick = function(e) { 
-        var clickDay = e.target.innerHTML;
+    days.onclick = function(e) {
+        var clickDay = null;
+
+        if(isAwesome) {
+            clickDay = e.target.firstElementChild.firstElementChild.innerHTML;
+        } else {
+            clickDay = e.target.innerHTML;
+        }
+        
         changeDay = clickDay;
         printDays(changeYear, changeMonth);
     }
