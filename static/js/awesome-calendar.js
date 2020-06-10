@@ -21,7 +21,7 @@ function initAwesomeStructure() {
             '        </div>\n' +
             '        <div class="cover-content-container">\n' +
             '            <div class="cover-content">\n' +
-            '                <h1 id="day-text-' + i + '">' + i + '</h1>\n' +
+            '                <h1 id="day-text-' + i + '" style="transform: rotate(' + randRotation + 'deg);">' + i + '</h1>\n' +
             '            </div>\n' +
             '        </div>\n' +
             '    </div>\n' +

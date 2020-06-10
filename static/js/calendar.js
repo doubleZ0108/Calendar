@@ -25,6 +25,8 @@ function initLogic(isAwesome=false){
     function refresh() {
         if(isAwesome == true){
             for(var i = 1; i <= 42; ++i) {
+                document.getElementById("day" + i).style.disabled = "none";
+                document.getElementById("day" + i).style.opacity = "1";
                 document.getElementById("day-text-" + i).innerHTML = " ";
                 document.getElementById("day-bgcolor-" + i).style.background = "linear-gradient(135deg,#5EFCE8,#736EFE)";
             }
@@ -32,6 +34,8 @@ function initLogic(isAwesome=false){
         }
 
         document.querySelectorAll(".day").forEach(function(elem){
+            elem.style.disabled = "none";
+            elem.style.opacity = "1";
             elem.innerHTML = " ";
             elem.style = "backgroud: #eeeeee";
         });
@@ -70,15 +74,19 @@ function initLogic(isAwesome=false){
         }
 
         // 仅用不属于这个月的信息
-        for(var j = nowMonthStartDay - 1; j > 0 ; --j){
-            var Day = document.getElementById("day" + j);
-            Day.disabled = "disabled";
-            Day.style.opacity = "0";
-        }
-        for(var j = nowMonthStartDay + numberOfDaysInMonth; j <= 42 ; ++j){
-            var Day = document.getElementById("day" + j);
-            Day.disabled = "disabled";
-            Day.style.opacity = "0";
+        for(let i = 1; i <= 42; ++i) {
+            let text = null;
+            if(isAwesome){
+                text = document.getElementById("day-text-" + i).innerHTML;
+            } else {
+                text = document.getElementById("day" + i).innerHTML;
+            }
+
+            if(isNaN(parseInt(text))) {
+                var Day = document.getElementById("day" + i);
+                Day.disabled = "disabled";
+                Day.style.opacity = "0";
+            }
         }
     }
 
