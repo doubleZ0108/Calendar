@@ -1,44 +1,84 @@
+var nowDay = new Date();
+var thisYear = nowDay.getFullYear(); 
+var thisMonth = nowDay.getMonth() + 1; 
+var today = nowDay.getDate();
+
+var dayNum = today.toString(); //用于变更操作
+var changeYear = thisYear;
+var changeMonth = thisMonth;
+var changeDay = dayNum;
+
 window.onload = function(){
+
+    initStructure();
+
+    initLogic();
+}
+
+function initStructure() {
+    let weeks = document.getElementById("weeks");
+    let weekList = ["Mon.", "Tues.", "Wed.", "Thur.", "Fri.", "Sat.", "Sun."];
+    weekList.forEach(function(weekName){
+        let weekDiv = document.createElement("div");
+        weekDiv.classList.add("week");
+        weekDiv.style.gridArea = weekName;
+        weekDiv.innerHTML = weekName;
+        weeks.appendChild(weekDiv);
+    });
+
+    let days = document.getElementById("days");
+    for(let i = 1; i <= 42; ++i){
+        let dayDiv = document.createElement("div");
+        dayDiv.classList.add("day");
+        dayDiv.id = "day" + i;
+        dayDiv.style.gridArea = "day-" + i;
+
+        dayDiv.innerHTML = i.toString();
+
+        days.appendChild(dayDiv);
+    }
+}
+
+function initLogic(){
     var now = document.getElementById('current-year-month');
-    // var left = document.getElementById('left');
-    // var right = document.getElementById('right');
+    var month_left = document.getElementById('month-left');
+    var month_right = document.getElementById('month-right');
+    var year_left = document.getElementById('year-left');
+    var year_right = document.getElementById('year-right');
     var days = document.getElementById("days");
 
     var monthLetter = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    var nowDay = new Date();
-    var thisYear = nowDay.getFullYear(); //获取当前年份
-    var thisMonth = nowDay.getMonth() + 1; //获取当前月份
-    var today = nowDay.getDate(); //获取当前号数
+    
 
-    var dayNum = today.toString(); //用于变更操作
-    var changeYear = thisYear;
-    var changeMonth = thisMonth;
-    var changeDay = dayNum;
-
-    function refresh() { //刷新页面
-        for(var i = 1; i <= 42; i++) {
-            var Rday = document.getElementById("day" + i);
-            Rday.innerHTML = " ";
-            Rday.style = "backgroud-color:#eeeeee";
-        }
+    /**
+     * 刷新页面
+     */
+    function refresh() {
+        document.querySelectorAll(".day").forEach(function(elem){
+            elem.innerHTML = " ";
+            elem.style = "backgroud-color:#eeeeee";
+        });
     }
 
-    function printDays(year, month) { //显示当前月的信息
+    /**
+     * 显示某年某月的信息
+     */
+    function printDays(year, month) {
         refresh();
-        var nowMonthStartDay = new Date(year, month - 1, 1).getDay(); //当前月第一天是周几
+        var nowMonthStartDay = new Date(year, month - 1, 1).getDay();   //当前月第一天是周几
         if(nowMonthStartDay == 0) {
             nowMonthStartDay = 7;
         }
-        var numberOfDaysInMonth = new Date(year, month, 0).getDate(); //当前月有多少天
+        var numberOfDaysInMonth = new Date(year, month, 0).getDate();   //当前月有多少天
         now.innerHTML = " ";
-        now.innerHTML = monthLetter[month - 1] + '</br>' + year; //改变title的内容
-        for(var i = 1, j = nowMonthStartDay; i <= numberOfDaysInMonth; i++, j++) { //判断变色的日期
+        now.innerHTML = monthLetter[month - 1] + '<br />' + year;        //改变title的内容
+        for(var i = 1, j = nowMonthStartDay; i <= numberOfDaysInMonth; i++, j++) {  //判断变色的日期
             var Day = document.getElementById("day" + j);
             Day.innerHTML = "" + i;
-            if(year == thisYear && month == thisMonth && i.toString() == dayNum) { //当前日期一直是绿色
+            if(year == thisYear && month == thisMonth && i.toString() == dayNum) {   //当前日期一直是绿色
                 Day.style = "background-color:#1abc9c";
             }
-            if(i.toString() == changeDay) { //选中的符合要求的日期显示绿色
+            if(i.toString() == changeDay) {     //选中的符合要求的日期显示绿色
                 Day.style = "background-color:#1abc9c";
             }
         }
@@ -46,48 +86,41 @@ window.onload = function(){
 
     printDays(thisYear, thisMonth);
 
-    // left.onclick = function() {
-    //     if(changeMonth == 1) {
-    //         changeYear--;
-    //         changeMonth = 12;
-    //     } else {
-    //         changeMonth--;
-    //     }
-    //     changeDay = 0; //翻页的时候将选中的日期清空
-    //     printDays(changeYear, changeMonth); //打印下一个月的日期
-    // }
-    // right.onclick = function() {
-    //     if(changeMonth == 12) {
-    //         changeYear++;
-    //         changeMonth = 1;
-    //     } else {
-    //         changeMonth++;
-    //     }
-    //     changeDay = 0;
-    //     printDays(changeYear, changeMonth);
-    // }
-    // days.onmouseover = function(e) { //鼠标移上变橘黄色
-    //     if(e.target && e.target.nodeName == "DIV") {
-    //         e.target.style = "background-color:orange";
-    //     }
-    // }
-    // days.onmouseout = function(e) { //鼠标移走恢复原色
-    //     if(e.target && e.target.nodeName == "DIV") {
-    //         e.target.style = "background-color:#eeeeee";
-    //     }
-    //     printDays(changeYear, changeMonth); //确保点击的日期显示颜色
-    // }
+    month_left.onclick = function() {
+        if(changeMonth == 1) {
+            changeYear--;
+            changeMonth = 12;
+        } else {
+            changeMonth--;
+        }
+        changeDay = 0; //翻页的时候将选中的日期清空
+        printDays(changeYear, changeMonth); //打印下一个月的日期
+    }
+    month_right.onclick = function() {
+        if(changeMonth == 12) {
+            changeYear++;
+            changeMonth = 1;
+        } else {
+            changeMonth++;
+        }
+        changeDay = 0;
+        printDays(changeYear, changeMonth);
+    }
 
-    // days.onclick = function(e) { //点击日期，判断选中的年，月，日是否大于当前日期
-    //     var clickDay = e.target.innerHTML;
-    //     if(changeYear > thisYear) {
-    //         changeDay = clickDay;
-    //     } else if(changeYear == thisYear && changeMonth > thisMonth) {
-    //         changeDay = clickDay;
-    //     } else if(changeYear == thisYear && changeMonth == thisMonth && clickDay >= today) {
-    //         changeDay = clickDay;
-    //     }
-    //     printDays(changeYear, changeMonth);
-    // }
+    year_left.onclick = function(){
+        changeYear--;
+        changeDay = 0;
+        printDays(changeYear, changeMonth);
+    }
+    year_right.onclick = function(){
+        changeYear++;
+        changeDay = 0;
+        printDays(changeYear, changeMonth);
+    }
 
+    days.onclick = function(e) { 
+        var clickDay = e.target.innerHTML;
+        changeDay = clickDay;
+        printDays(changeYear, changeMonth);
+    }
 }
