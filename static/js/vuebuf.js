@@ -10,3 +10,5 @@ new Vue({
         }
     }
 });
+
+{/* <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> */}
