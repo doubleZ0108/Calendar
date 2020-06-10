@@ -39,6 +39,8 @@ function initLogic(isAwesome=false){
             elem.innerHTML = " ";
             elem.style = "backgroud: #eeeeee";
         });
+
+        // document.getElementById("week-bg");
     }
 
     /**
@@ -66,10 +68,18 @@ function initLogic(isAwesome=false){
 
             DayText.innerHTML = "" + i;
             if(year == thisYear && month == thisMonth && i.toString() == dayNum) {   //当前日期一直是绿色
-                DayBgColor.style = "background:#1abc9c";
+                DayBgColor.style = "background:#E96D71";
             }
             if(i.toString() == changeDay) {     //选中的符合要求的日期显示绿色
                 DayBgColor.style = "background:#1abc9c";
+                let freshDay = new Date(changeYear, changeMonth-1, changeDay);
+                let weekNum = (freshDay.getDay() + 7 - 1) % 7;
+                console.log(weekNum);
+                if(weekNum === 6) {
+                    document.getElementById("week-bg").style.left = "calc(calc(calc(var(--button-width) + var(--week-padding))*" + weekNum + ") - calc(var(--week-padding)*0.5))";
+                } else {
+                    document.getElementById("week-bg").style.left = "calc(calc(var(--button-width) + var(--week-padding))*" + weekNum + ")";
+                }
             }
         }
 

@@ -1,9 +1,27 @@
+let weekList = ["Mon.", "Tues.", "Wed.", "Thur.", "Fri.", "Sat.", "Sun."];
+
 window.onload = function() {
     initAwesomeStructure();
     initLogic(true);
 };
 
 function initAwesomeStructure() {
+
+    let weeks = document.getElementById("weeks");
+    weekList.forEach(function(weekName){
+        let weekDiv = document.createElement("div");
+        weekDiv.classList.add("week");
+        weekDiv.id = weekName;
+        weekDiv.style.gridArea = weekName;
+        weekDiv.innerHTML = weekName;
+        weeks.appendChild(weekDiv);
+    });
+    let bgDiv = document.createElement("div");
+    bgDiv.classList.add("bg");
+    bgDiv.id = "week-bg";
+    weeks.appendChild(bgDiv);
+
+
     let days = $('#days');
 
     var min = -5;
