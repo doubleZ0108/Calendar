@@ -74,11 +74,13 @@ function initLogic(isAwesome=false){
                 DayBgColor.style = "background:#1abc9c";
                 let freshDay = new Date(changeYear, changeMonth-1, changeDay);
                 let weekNum = (freshDay.getDay() + 7 - 1) % 7;
-                console.log(weekNum);
-                if(weekNum === 6) {
-                    document.getElementById("week-bg").style.left = "calc(calc(calc(var(--button-width) + var(--week-padding))*" + weekNum + ") - calc(var(--week-padding)*0.5))";
-                } else {
-                    document.getElementById("week-bg").style.left = "calc(calc(var(--button-width) + var(--week-padding))*" + weekNum + ")";
+
+                if(isAwesome){
+                    if(weekNum === 6) {
+                        document.getElementById("week-bg").style.left = "calc(calc(calc(var(--button-width) + var(--week-padding))*" + weekNum + ") - calc(var(--week-padding)*0.5))";
+                    } else {
+                        document.getElementById("week-bg").style.left = "calc(calc(var(--button-width) + var(--week-padding))*" + weekNum + ")";
+                    }
                 }
             }
         }
