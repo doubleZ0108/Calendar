@@ -22,14 +22,15 @@ function initAwesomeStructure() {
     weeks.appendChild(bgDiv);
 
 
-    let days = $('#days');
+    let days = document.getElementById('days');
+    days.innerHTML = "";
 
     var min = -5;
     var max = 5;
 
     for(let i = 1; i <= 42; ++i) {
         var randRotation = parseFloat(Math.random()*(min - max + 1) + max);
-        days.append(
+        days.innerHTML += [
             '<div class="day-group" id="day' + i + '">\n' +
             '    <div class="day-outside">\n' +
             '        <div class="day-shadow"></div>\n' +
@@ -48,7 +49,7 @@ function initAwesomeStructure() {
             '        <div>Text2</div>\n' +
             '    </div>\n' +
             '</div>'
-        );
+        ].join("");
     }
 }
 
