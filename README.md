@@ -2,13 +2,10 @@
 
 A series of front-end 📆calendars based on pure js & css.
 
-#### Table of Contents
-
-   * [Calendar](#calendar)
-      * [Features](#features)
-      * [Basic Calendar](#basic-calendar)
-      * [Awesome Calendar](#awesome-calendar)
-      * [About the Author](#about-the-author)
+* [Features](#features)
+* [Basic Calendar](#basic-calendar)
+* [Awesome Calendar](#awesome-calendar)
+* [About the Author](#about-the-author)
 
 ------
 
